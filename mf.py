@@ -349,7 +349,6 @@ def ui():
     spol_default_index = spol_options.index("M")
     #spol = st.selectbox("Spol otroka", options=spol_options, index=spol_default_index)
     spol = st.text_input("Spol otroka (M ali Ž):",value="M")
-    st.write(spol)
     st.write("Vnesite starost otroka v letih in mesecih.")
     t_otrok = 12 * st.number_input("Vnesite dopolnjena leta otroka:",value=5)
     t_otrok += st.number_input("Vnesite število mesecev:",value=8)
@@ -382,6 +381,7 @@ def ui():
         if st.button("Prični z analizo"):
             st.session_state["mati"] = mati
             st.session_state["oce"] = oce
+            st.write(spol)
             st.session_state["spol"] = spol
             st.session_state["t_otrok"] = t_otrok
             st.session_state["h_otrok"] = h_otrok
