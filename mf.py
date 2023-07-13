@@ -6,6 +6,24 @@ import markdown
 
 report_text=""
 
+st.session_state["mati"] = 168
+st.session_state["oce"] = 178
+st.session_state["spol"] =  "M"
+st.session_state["t_otrok"] = 5*12+8
+st.session_state["h_otrok"] = 127
+st.session_state["show_results"] = False
+
+
+def get_variable_state():
+    mati=st.session_state["mati"] = 168
+    oce=st.session_state["oce"] = 178
+    spol=st.session_state["spol"] =  "M"
+    t_otrok=st.session_state["t_otrok"] = 5*12+8
+    h_otrok=st.session_state["h_otrok"] = 127
+    st.session_state["show_results"] = False
+    return [mati,oce,spol,t_otrok,h_otrok]
+
+
 def interval(x,seznam,p_values):
     seznam=sorted(seznam)
     for i,v in enumerate(seznam):
@@ -15,6 +33,7 @@ def interval(x,seznam,p_values):
             k=dy/dx
             pp=p_values[i-1]+k*(x-seznam[i-1])
             return (x,pp)
+
 
 def napoved(x,seznam,p_values):
     seznam=sorted(seznam)
@@ -26,7 +45,10 @@ def napoved(x,seznam,p_values):
             y=seznam[i-1]+k*(x-p_values[i-1])
             return y
         
-def figure_1(oce, mati, spol, female_h, female_p, male_h, male_p):
+
+def figure_1(female_h, female_p, male_h, male_p):
+    
+    mati,oce,spol,t_otrok,h_otrok=get_variable_state()
     plt.figure(figsize=(12,6))
     x,y=interval(mati,female_h,female_p)
     y_f=y
@@ -88,7 +110,9 @@ def figure_1(oce, mati, spol, female_h, female_p, male_h, male_p):
     st.pyplot(plt)
     return [y_cor,h_pred,y_m,y_f]
 
-def analiza(spol,otrok_t,otrok_h,df_male,df_female,y_corr,oce,mati):
+
+def analiza(df_male,df_female,y_corr):
+    mati,oce,spol,otrok_t,otrok_h=get_variable_state()
     result_text=""
     st.markdown("## Specične karakteristike otroka")
     result_text+="## Specične karakteristike otroka\n\n"
@@ -167,7 +191,9 @@ def analiza(spol,otrok_t,otrok_h,df_male,df_female,y_corr,oce,mati):
     st.pyplot(plt)
     return result_text
 
-def potek_visine(spol,otrok_t,otrok_h,df_male,df_female,y_corr,oce,mati):
+
+def potek_visine(df_male,df_female,y_corr):
+    mati,oce,spol,otrok_t,otrok_h=get_variable_state()
     result_text=""
     result_text+="## Napoved nadaljne rasti otroka\n\n"
     st.markdown("## Napoved nadaljne rasti otroka")
@@ -233,7 +259,9 @@ def potek_visine(spol,otrok_t,otrok_h,df_male,df_female,y_corr,oce,mati):
     st.markdown(f"- [tolmačenje grafov]({link})")
     return result_text
     
-def result(oce,mati,spol,t_otrok,h_otrok):
+
+def result():
+    mati,oce,spol,t_otrok,h_otrok=get_variable_state()
     report_text=""
     report_text+="## Vneseni podatki\n\n"
     report_text+="### Starši\n\n"
@@ -251,7 +279,7 @@ def result(oce,mati,spol,t_otrok,h_otrok):
     report_text+=rezultat
     report_text+="\n\n {FIGURE_1} \n\n"
     st.markdown(rezultat)
-    otrok_p,otrok_h,y_m,y_f=figure_1(oce, mati, spol, female_h, female_p, male_h, male_p)
+    otrok_p,otrok_h,y_m,y_f=figure_1(female_h, female_p, male_h, male_p)
     y_corr=(y_m+y_f)/2
     
     
@@ -269,12 +297,13 @@ def result(oce,mati,spol,t_otrok,h_otrok):
     st.markdown(rezultat)
     report_text+=rezultat
     
-    report_text+=analiza(spol,t_otrok,h_otrok,df_male,df_female,y_corr,oce,mati)
+    report_text+=analiza(df_male,df_female,y_corr)
     report_text+="\n\n {FIGURE_2} \n\n"
     
     
-    report_text+=potek_visine(spol,t_otrok,h_otrok,df_male,df_female,y_corr,oce,mati)
+    report_text+=potek_visine(df_male,df_female,y_corr)
     return report_text
+
 
 def load_data():
     file_path = "Višina.xlsx"
@@ -296,6 +325,7 @@ def load_data():
     female_p=[p.replace("P","").replace("01","0.1").replace("999","99.9") for p in cols[5::]]
     female_p=[float(p) for p in female_p]
     return [female_h, female_p, male_h, male_p,df_male,df_female]
+
 
 def ui():
     st.title("Podatki o višini otroka in staršev")
@@ -349,14 +379,14 @@ def ui():
         st.write("Potrdite pravilnost podatkov")
     return [mati, oce, spol, t_otrok, h_otrok, page]
 
-def page_results(oce,mati,spol,t_otrok,h_otrok):
+def page_results():
     report_text=""
     report_text+="### Rezutlati\n\n"
     report_text+="V nadaljevnaju so prikazani rezultati analize"
     
     st.title("Rezultati")
     st.markdown("V nadaljevnaju so prikazani rezultati analize")
-    report_text=result(oce,mati,spol,t_otrok,h_otrok)
+    report_text=result()
     return report_text
 
 def main():
@@ -367,7 +397,7 @@ def main():
     elif page == "Vnos podatkov":
         mati, oce, spol, t_otrok, h_otrok, page=ui()
     elif page == "Rezultati":
-        report_text=page_results(mati, oce, spol, t_otrok, h_otrok)
+        report_text=page_results()
         report_text=report_text.replace(" {FIGURE_1} ","![Fig_1](Fig_1.jpg)")
         report_text=report_text.replace(" {FIGURE_2} ","![Fig_2](Fig_2.jpg)")
         report_text=report_text.replace(" {FIGURE_3} ","![Fig_3](Fig_3.jpg)")
