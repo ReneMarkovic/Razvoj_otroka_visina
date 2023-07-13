@@ -60,6 +60,8 @@ def figure_1(female_h, female_p, male_h, male_p):
     y_cor=(y_m+y_f)/2.0
     
     aa=0.4
+    st.write(f"Spol: {spol}")
+
     if spol=="M":
         x_napoved=napoved(y_cor,male_h,male_p)
         h_pred=x_napoved
@@ -77,8 +79,8 @@ def figure_1(female_h, female_p, male_h, male_p):
     plt.vlines(x,0,y,ls="-.",color="navy",lw=0.5)
     
     st.write(f"Višina očeta: {oce} cm")
-    st.write(f"hlines: {y},{min(female_h)},{x}")
-    st.write(f"vlines: {x},{0},{y}")
+    st.write(f"hlines: {y:.1f},{min(female_h):.1f},{x:.1f}")
+    st.write(f"vlines: {x:.1f},{0:.1f},{y:.1f}")
     
     st.write(f"Višina očeta: {mati} cm")
     
@@ -98,10 +100,15 @@ def figure_1(female_h, female_p, male_h, male_p):
     
     plt.scatter(x,y,color="hotpink",s=20,alpha=aa)
     plt.scatter(x,0,color="hotpink",s=40,alpha=aa)
-    plt.vlines(x,0,y,ls="-.",color="hotpink",alpha=aa,lw=0.5)
     
+    plt.vlines(x,0,y,ls="-.",color="hotpink",alpha=aa,lw=0.5)
     plt.hlines(y,min(female_h),x,ls="-.",color="hotpink",alpha=aa,lw=0.5)
     plt.text(min(female_h)+1,y_f + 1, f"Mati", ha='center', va='bottom', color="hotpink",size=12)
+    
+    st.write(f"Višina matere: {mati} cm")
+    st.write(f"hlines: {y:.1f},{min(female_h):.1f},{x:.1f}")
+    st.write(f"vlines: {x:.1f},{0:.1f},{y:.1f}")
+    
     
     plt.hlines(50,min(female_h),200,ls="-.",color="gray",lw=0.5)
     plt.text(190,50 + 1, f"Povprečje", ha='center', va='bottom', color="gray")
