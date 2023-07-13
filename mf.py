@@ -100,7 +100,6 @@ def figure_1(female_h, female_p, male_h, male_p):
     
     plt.scatter(x,y,color="hotpink",s=20,alpha=aa)
     plt.scatter(x,0,color="hotpink",s=40,alpha=aa)
-    
     plt.vlines(x,0,y,ls="-.",color="hotpink",alpha=aa,lw=0.5)
     plt.hlines(y,min(female_h),x,ls="-.",color="hotpink",alpha=aa,lw=0.5)
     plt.text(min(female_h)+1,y_f + 1, f"Mati", ha='center', va='bottom', color="hotpink",size=12)
@@ -386,7 +385,7 @@ def ui():
             st.session_state["t_otrok"] = t_otrok
             st.session_state["h_otrok"] = h_otrok
             st.session_state["show_results"] = True
-            page="Rezultati"
+            st.redirect("Rezultati")
             return [mati, oce, spol, t_otrok, h_otrok, page]
     else:
         st.write("Potrdite pravilnost podatkov")
