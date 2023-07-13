@@ -1,14 +1,7 @@
 import pandas as pd
-import plotly.express as px
 import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
-import io
-from reportlab.pdfgen import canvas
-from  ironpdf import *
-import pdfkit
-import base64
-import os
 import markdown
 
 report_text=""
