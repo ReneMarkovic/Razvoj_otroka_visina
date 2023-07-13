@@ -71,13 +71,19 @@ def figure_1(female_h, female_p, male_h, male_p):
     
     plt.scatter(x,y,color="navy",s=20)
     plt.scatter(x,0,color="navy",s=40)
+    
+    plt.text(min(female_h) + 1,y_m + 1, f"Oče", ha='center', va='bottom', color="navy",size=12)
+    plt.hlines(y,min(female_h),x, ls="-.",color="navy",lw=0.5)
     plt.vlines(x,0,y,ls="-.",color="navy",lw=0.5)
     
-    plt.text(min(female_h)+1,y + 1, f"Oče", ha='center', va='bottom', color="navy",size=12)
-    plt.hlines(y,min(female_h),x,ls="-.",color="navy",lw=0.5)
-
-    x,y=interval(mati,female_h,female_p)
-    y_f=y
+    st.write(f"Višina očeta: {oce} cm")
+    st.write(f"hlines: {y},{min(female_h)},{x}")
+    st.write(f"vlines: {x},{0},{y}")
+    
+    st.write(f"Višina očeta: {mati} cm")
+    
+    x, y = interval(mati,female_h,female_p)
+    y_f = y
     
     aa=0.4
     if spol=="Ž":
@@ -95,7 +101,7 @@ def figure_1(female_h, female_p, male_h, male_p):
     plt.vlines(x,0,y,ls="-.",color="hotpink",alpha=aa,lw=0.5)
     
     plt.hlines(y,min(female_h),x,ls="-.",color="hotpink",alpha=aa,lw=0.5)
-    plt.text(min(female_h)+1,y + 1, f"Mati", ha='center', va='bottom', color="hotpink",size=12)
+    plt.text(min(female_h)+1,y_f + 1, f"Mati", ha='center', va='bottom', color="hotpink",size=12)
     
     plt.hlines(50,min(female_h),200,ls="-.",color="gray",lw=0.5)
     plt.text(190,50 + 1, f"Povprečje", ha='center', va='bottom', color="gray")
