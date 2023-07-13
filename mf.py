@@ -6,11 +6,6 @@ import markdown
 
 report_text=""
 
-def download_as_pdf(markdown_text, filename):
-    html = markdown.markdown(markdown_text)
-    pdfkit.from_string(html, filename)
-
-
 def interval(x,seznam,p_values):
     seznam=sorted(seznam)
     for i,v in enumerate(seznam):
@@ -315,7 +310,14 @@ def ui():
     st.write("Vnesite starost otroka v letih in mesecih.")
     t_otrok = 12 * st.number_input("Vnesite dopolnjena leta otroka:",value=5)
     t_otrok += st.number_input("Vnesite število mesecev:",value=8)
-
+    
+    st.session_state["mati"] = mati
+    st.session_state["oce"] = oce
+    st.session_state["spol"] = spol
+    st.session_state["t_otrok"] = t_otrok
+    st.session_state["h_otrok"] = h_otrok
+    st.session_state["show_results"] = False
+    
     if mati < 100:
         mati *= 100
     if oce < 100:
@@ -342,6 +344,7 @@ def ui():
             st.session_state["h_otrok"] = h_otrok
             st.session_state["show_results"] = True
             page="Rezultati"
+            return [mati, oce, spol, t_otrok, h_otrok, page]
     else:
         st.write("Potrdite pravilnost podatkov")
     return [mati, oce, spol, t_otrok, h_otrok, page]
