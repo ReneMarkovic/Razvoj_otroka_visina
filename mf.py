@@ -18,7 +18,7 @@ def get_variable_state():
     mati=st.session_state["mati"]
     oce=st.session_state["oce"] 
     spol=st.session_state["spol"] 
-    t_otrok=st.session_state["t_otrok"]/12
+    t_otrok=st.session_state["t_otrok"]
     h_otrok=st.session_state["h_otrok"] 
     st.session_state["show_results"] = False
     return [mati,oce,spol,t_otrok,h_otrok]
