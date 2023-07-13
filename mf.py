@@ -385,7 +385,7 @@ def ui():
             st.session_state["t_otrok"] = t_otrok
             st.session_state["h_otrok"] = h_otrok
             st.session_state["show_results"] = True
-            st.experimental_reroute("Rezultati")
+            st.redirect("Rezultati")
             return [mati, oce, spol, t_otrok, h_otrok, page]
     else:
         st.write("Potrdite pravilnost podatkov")
