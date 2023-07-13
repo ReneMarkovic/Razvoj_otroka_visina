@@ -34,7 +34,7 @@ def save_user_input():
     filename = os.path.join("user_input.json")
     with open(filename, "a") as f:
         
-        json.dump(st.session_state, f)
+        json.dump(st.session_state.to_dict(), f)
 
 save_user_input()
 
