@@ -3,8 +3,13 @@ import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
 import markdown
+import os
+import json
+import datetime
 
 report_text=""
+
+
 
 st.session_state["mati"] = 168
 st.session_state["oce"] = 178
@@ -22,6 +27,16 @@ def get_variable_state():
     h_otrok=st.session_state["h_otrok"] 
     st.session_state["show_results"] = False
     return [mati,oce,spol,t_otrok,h_otrok]
+
+def save_user_input():
+    time_now = datetime.datetime.now()
+    st.session_state["time_now"] = time_now
+    filename = os.path.join("user_input.json")
+    with open(filename, "a") as f:
+        
+        json.dump(st.session_state, f)
+
+save_user_input()
 
 
 def interval(x,seznam,p_values):
@@ -379,6 +394,7 @@ def ui():
     else:
         st.write("Potrdite pravilnost podatkov")
     return [mati, oce, spol, t_otrok, h_otrok, page]
+
 
 def page_results():
     report_text=""
