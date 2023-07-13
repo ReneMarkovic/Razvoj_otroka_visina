@@ -15,11 +15,11 @@ st.session_state["show_results"] = False
 
 
 def get_variable_state():
-    mati=st.session_state["mati"] = 168
-    oce=st.session_state["oce"] = 178
-    spol=st.session_state["spol"] =  "M"
-    t_otrok=st.session_state["t_otrok"] = 5*12+8
-    h_otrok=st.session_state["h_otrok"] = 127
+    mati=st.session_state["mati"]
+    oce=st.session_state["oce"] 
+    spol=st.session_state["spol"] 
+    t_otrok=st.session_state["t_otrok"]/12
+    h_otrok=st.session_state["h_otrok"] 
     st.session_state["show_results"] = False
     return [mati,oce,spol,t_otrok,h_otrok]
 
@@ -381,7 +381,6 @@ def ui():
         if st.button("Prični z analizo"):
             st.session_state["mati"] = mati
             st.session_state["oce"] = oce
-            st.write(spol)
             st.session_state["spol"] = spol
             st.session_state["t_otrok"] = t_otrok
             st.session_state["h_otrok"] = h_otrok
