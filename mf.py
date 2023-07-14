@@ -36,8 +36,6 @@ def save_user_input():
         
         json.dump(st.session_state.to_dict(), f)
 
-save_user_input()
-
 
 def interval(x,seznam,p_values):
     seznam=sorted(seznam)
