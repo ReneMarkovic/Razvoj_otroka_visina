@@ -393,6 +393,8 @@ def ui():
             return [mati, oce, spol, t_otrok, h_otrok, page]
     else:
         st.write("Potrdite pravilnost podatkov")
+    st.markdown("")
+    st.markdown("**Avtor:** Rene Markovič")
     return [mati, oce, spol, t_otrok, h_otrok, page]
 
 
@@ -404,6 +406,7 @@ def page_results():
     st.title("Rezultati")
     st.markdown("V nadaljevnaju so prikazani rezultati analize")
     report_text=result()
+    st.markdown("**Avtor:** Rene Markovič")
     return report_text
 
 def main():
@@ -437,3 +440,4 @@ def page_intro():
     st.markdown("## viri")
     st.markdown("- [Podatki 5-19 let](https://www.who.int/tools/growth-reference-data-for-5to19-years/indicators/height-for-age)")
     st.markdown("- [Podatki 0-5 let](https://www.who.int/tools/child-growth-standards/standards/length-height-for-age)")
+    st.markdown("**Avtor:** Rene Markovič")
